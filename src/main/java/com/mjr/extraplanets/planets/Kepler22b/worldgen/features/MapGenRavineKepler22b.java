@@ -191,7 +191,7 @@ public class MapGenRavineKepler22b extends MapGenBase {
 	// Determine if the block at the specified location is the top block for the biome, we take into account
 	// Vanilla bugs to make sure that we generate the map the same way vanilla does.
 	private boolean isTopBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ) {
-		net.minecraft.world.biome.Biome biome = worldObj.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+		net.minecraft.world.biome.Biome biome = world.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
 		IBlockState state = data.getBlockState(x, y, z);
 		return (isExceptionBiome(biome) ? state.getBlock() == Blocks.GRASS : state.getBlock() == biome.topBlock);
 	}
@@ -218,7 +218,7 @@ public class MapGenRavineKepler22b extends MapGenBase {
 	 *            True if we've encountered the biome's top block. Ideally if we've broken the surface.
 	 */
 	protected void digBlock(ChunkPrimer data, int x, int y, int z, int chunkX, int chunkZ, boolean foundTop) {
-		net.minecraft.world.biome.Biome biome = worldObj.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
+		net.minecraft.world.biome.Biome biome = world.getBiome(new BlockPos(x + chunkX * 16, 0, z + chunkZ * 16));
 		IBlockState state = data.getBlockState(x, y, z);
 		IBlockState top = biome.topBlock;
 		IBlockState filler = biome.fillerBlock;

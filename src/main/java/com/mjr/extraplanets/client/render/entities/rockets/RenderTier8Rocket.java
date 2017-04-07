@@ -92,12 +92,12 @@ public class RenderTier8Rocket extends Render<EntityTier8Rocket> {
 
 		ClientUtil.drawBakedModel(rocketModel);
 
-		Vector3 teamColor = ClientUtil.updateTeamColor(FMLClientHandler.instance().getClient().thePlayer.getName(), true);
+		Vector3 teamColor = ClientUtil.updateTeamColor(FMLClientHandler.instance().getClient().player.getName(), true);
 		if (teamColor != null) {
 			GL11.glColor3f(teamColor.floatX(), teamColor.floatY(), teamColor.floatZ());
 		}
 
-		if (FMLClientHandler.instance().getClient().thePlayer.ticksExisted / 10 % 2 < 1) {
+		if (FMLClientHandler.instance().getClient().player.ticksExisted / 10 % 2 < 1) {
 			GL11.glColor3f(1, 0, 0);
 		} else {
 			GL11.glColor3f(0, 1, 0);

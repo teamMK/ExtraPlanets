@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -31,12 +32,12 @@ public class EntityTier4Rocket extends EntityTieredRocket {
 	public EntityTier4Rocket(World world, double x, double y, double z, IRocketType.EnumRocketType type) {
 		super(world, x, y, z);
 		this.rocketType = type;
-		this.cargoItems = new ItemStack[this.getSizeInventory()];
+        this.stacks = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 	}
 
-	public EntityTier4Rocket(World world, double x, double y, double z, IRocketType.EnumRocketType type, ItemStack[] inv) {
+	public EntityTier4Rocket(World world, double x, double y, double z, IRocketType.EnumRocketType type, NonNullList<ItemStack> inv) {
 		this(world, x, y, z, type);
-		this.cargoItems = inv;
+		this.stacks = inv;
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class EntityTier4Rocket extends EntityTieredRocket {
 		}
 
 		if ((this.getLaunched() || this.launchPhase == EnumLaunchPhase.IGNITED.ordinal() && this.rand.nextInt(i) == 0) && !ConfigManagerCore.disableSpaceshipParticles && this.hasValidFuel()) {
-			if (this.worldObj.isRemote) {
+			if (this.world.isRemote) {
 				this.spawnParticles(this.getLaunched());
 			}
 		}
@@ -98,21 +99,21 @@ public class EntityTier4Rocket extends EntityTieredRocket {
 
 			double multiplier = 1.0D;
 
-			if (this.worldObj.provider instanceof IGalacticraftWorldProvider) {
-				multiplier = ((IGalacticraftWorldProvider) this.worldObj.provider).getFuelUsageMultiplier();
+			if (this.world.provider instanceof IGalacticraftWorldProvider) {
+				multiplier = ((IGalacticraftWorldProvider) this.world.provider).getFuelUsageMultiplier();
 
 				if (multiplier <= 0) {
 					multiplier = 1;
 				}
 			}
 
-			if (this.timeSinceLaunch % MathHelper.floor_double(2 * (1 / multiplier)) == 0) {
+			if (this.timeSinceLaunch % MathHelper.floor(2 * (1 / multiplier)) == 0) {
 				this.removeFuel(1);
 				if (!this.hasValidFuel()) {
 					this.stopRocketSound();
 				}
 			}
-		} else if (!this.hasValidFuel() && this.getLaunched() && !this.worldObj.isRemote) {
+		} else if (!this.hasValidFuel() && this.getLaunched() && !this.world.isRemote) {
 			if (Math.abs(Math.sin(this.timeSinceLaunch / 1000)) / 10 != 0.0) {
 				this.motionY -= Math.abs(Math.sin(this.timeSinceLaunch / 1000)) / 20;
 			}
@@ -126,10 +127,10 @@ public class EntityTier4Rocket extends EntityTieredRocket {
 		if (playerBase != null) {
 			GCPlayerStats stats = playerBase.getCapability(GCCapabilities.GC_STATS_CAPABILITY, null);
 
-			if (this.cargoItems == null || this.cargoItems.length == 0) {
-				stats.setRocketStacks(new ItemStack[2]);
+			if (this.stacks  == null || this.stacks.isEmpty()) {
+                stats.setRocketStacks(NonNullList.withSize(2, ItemStack.EMPTY));
 			} else {
-				stats.setRocketStacks(this.cargoItems);
+                stats.setRocketStacks(this.stacks);
 			}
 
 			stats.setRocketType(this.rocketType.getIndex());
@@ -204,7 +205,7 @@ public class EntityTier4Rocket extends EntityTieredRocket {
 	    }
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer) {
+    public boolean isUsableByPlayer(EntityPlayer par1EntityPlayer){
 		return !this.isDead && par1EntityPlayer.getDistanceSqToEntity(this) <= 64.0D;
 	}
 

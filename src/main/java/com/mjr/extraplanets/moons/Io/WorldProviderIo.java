@@ -64,7 +64,7 @@ public class WorldProviderIo extends WorldProviderSpace implements IGalacticraft
 	@Override
 	@SideOnly(Side.CLIENT)
 	public float getStarBrightness(float par1) {
-		final float var2 = this.worldObj.getCelestialAngle(par1);
+		final float var2 = this.world.getCelestialAngle(par1);
 		float var3 = 1.0F - (MathHelper.cos(var2 * (float) Math.PI * 2.0F) * 2.0F + 0.25F);
 
 		if (var3 < 0.0F) {

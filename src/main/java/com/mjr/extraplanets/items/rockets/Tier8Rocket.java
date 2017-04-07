@@ -106,7 +106,7 @@ public class Tier8Rocket extends Item implements IHoldableItem
                 final EntityTier8Rocket spaceship = new EntityTier8Rocket(worldIn, centerX, centerY, centerZ, EnumRocketType.values()[stack.getItemDamage()]);
 
                 spaceship.setPosition(spaceship.posX, spaceship.posY + spaceship.getOnPadYOffset(), spaceship.posZ);
-                worldIn.spawnEntityInWorld(spaceship);
+                worldIn.spawnEntity(spaceship);
 
                 if (stack.hasTagCompound() && stack.getTagCompound().hasKey("RocketFuel"))
                 {

@@ -91,7 +91,7 @@ public class Tier5Rocket extends Item implements IHoldableItem {
 				final EntityTier5Rocket spaceship = new EntityTier5Rocket(worldIn, centerX, centerY, centerZ, EnumRocketType.values()[stack.getItemDamage()]);
 
 				spaceship.setPosition(spaceship.posX, spaceship.posY + spaceship.getOnPadYOffset(), spaceship.posZ);
-				worldIn.spawnEntityInWorld(spaceship);
+				worldIn.spawnEntity(spaceship);
 
 				if (stack.hasTagCompound() && stack.getTagCompound().hasKey("RocketFuel")) {
 					spaceship.fuelTank.fill(new FluidStack(GCFluids.fluidFuel, stack.getTagCompound().getInteger("RocketFuel")), true);

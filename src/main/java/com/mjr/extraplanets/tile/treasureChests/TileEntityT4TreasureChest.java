@@ -20,7 +20,7 @@ public class TileEntityT4TreasureChest extends TileEntityTreasureChest
     {
         double distance = Double.MAX_VALUE;
         TileEntityT4TreasureChest chest = null;
-        for (final TileEntity tile : entity.worldObj.loadedTileEntityList)
+        for (final TileEntity tile : entity.world.loadedTileEntityList)
         {
             if (tile instanceof TileEntityT4TreasureChest)
             {

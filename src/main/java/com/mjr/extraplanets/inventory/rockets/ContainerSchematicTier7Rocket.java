@@ -19,12 +19,12 @@ public class ContainerSchematicTier7Rocket extends Container
 {
 	public InventorySchematicTier7Rocket craftMatrix = new InventorySchematicTier7Rocket(this);
 	public IInventory craftResult = new InventoryCraftResult();
-	private final World worldObj;
+	private final World world;
 
 	public ContainerSchematicTier7Rocket(InventoryPlayer par1InventoryPlayer, BlockPos pos)
 	{
 		final int change = 27;
-		this.worldObj = par1InventoryPlayer.player.worldObj;
+		this.world = par1InventoryPlayer.player.world;
 		this.addSlotToContainer(new SlotRocketBenchResult(par1InventoryPlayer.player, this.craftMatrix, this.craftResult, 0, 142, 18 + 69 + change));
 		int var6;
 		int var7;
@@ -86,7 +86,7 @@ public class ContainerSchematicTier7Rocket extends Container
 	{
 		super.onContainerClosed(par1EntityPlayer);
 
-		if (!this.worldObj.isRemote)
+		if (!this.world.isRemote)
 		{
 			for (int var2 = 1; var2 < this.craftMatrix.getSizeInventory(); ++var2)
 			{
@@ -193,21 +193,17 @@ public class ContainerSchematicTier7Rocket extends Container
 				}
 			}
 
-			if (var4.stackSize == 0)
-			{
+			if (var4.isEmpty()) {
 				var3.putStack((ItemStack) null);
-			}
-			else
-			{
+			} else {
 				var3.onSlotChanged();
 			}
 
-			if (var4.stackSize == var2.stackSize)
-			{
+			if (var4.getCount() == var2.getCount()) {
 				return null;
 			}
 
-			var3.onPickupFromSlot(par1EntityPlayer, var4);
+            var3.onTake(par1EntityPlayer, var4);
 		}
 
 		return var2;

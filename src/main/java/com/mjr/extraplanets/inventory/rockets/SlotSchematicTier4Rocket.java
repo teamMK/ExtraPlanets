@@ -27,16 +27,16 @@ public class SlotSchematicTier4Rocket extends Slot {
 	@Override
 	public void onSlotChanged() {
 		if (this.player instanceof EntityPlayerMP) {
-			for (int var12 = 0; var12 < this.player.worldObj.playerEntities.size(); ++var12) {
-				final EntityPlayerMP var13 = (EntityPlayerMP) this.player.worldObj.playerEntities.get(var12);
+			for (int var12 = 0; var12 < this.player.world.playerEntities.size(); ++var12) {
+				final EntityPlayerMP var13 = (EntityPlayerMP) this.player.world.playerEntities.get(var12);
 
-				if (var13.dimension == this.player.worldObj.provider.getDimensionType().getId()) {
+				if (var13.dimension == this.player.world.provider.getDimensionType().getId()) {
 					final double var14 = this.pos.getX() - var13.posX;
 					final double var16 = this.pos.getY() - var13.posY;
 					final double var18 = this.pos.getZ() - var13.posZ;
 
 					if (var14 * var14 + var16 * var16 + var18 * var18 < 20 * 20) {
-						GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_SPAWN_SPARK_PARTICLES, var13.worldObj.provider.getDimensionType().getId(), new Object[] { this.pos }), var13);
+						GalacticraftCore.packetPipeline.sendTo(new PacketSimple(EnumSimplePacket.C_SPAWN_SPARK_PARTICLES, var13.world.provider.getDimensionType().getId(), new Object[] { this.pos }), var13);
 					}
 				}
 			}

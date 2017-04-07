@@ -61,7 +61,7 @@ public class BlockNuclearBomb extends Block {
 		if (!worldIn.isRemote) {
 			EntityNuclearBombPrimed EntityNuclearBombPrimed = new EntityNuclearBombPrimed(worldIn, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, explosionIn.getExplosivePlacedBy());
 			EntityNuclearBombPrimed.fuse = worldIn.rand.nextInt(EntityNuclearBombPrimed.fuse / 4) + EntityNuclearBombPrimed.fuse / 8;
-			worldIn.spawnEntityInWorld(EntityNuclearBombPrimed);
+			worldIn.spawnEntity(EntityNuclearBombPrimed);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class BlockNuclearBomb extends Block {
 		if (!worldIn.isRemote) {
 			if (state.getValue(EXPLODE).booleanValue()) {
 				EntityNuclearBombPrimed EntityNuclearBombPrimed = new EntityNuclearBombPrimed(worldIn, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, igniter);
-				worldIn.spawnEntityInWorld(EntityNuclearBombPrimed);
+				worldIn.spawnEntity(EntityNuclearBombPrimed);
 				worldIn.playSound((EntityPlayer) null, EntityNuclearBombPrimed.posX, EntityNuclearBombPrimed.posY, EntityNuclearBombPrimed.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			}
 		}

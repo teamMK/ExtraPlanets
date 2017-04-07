@@ -43,7 +43,7 @@ public class MainHandlerClient {
 	@SubscribeEvent
 	public void onClientTick(ClientTickEvent event) {
 		final Minecraft minecraft = FMLClientHandler.instance().getClient();
-		final WorldClient world = minecraft.theWorld;
+		final WorldClient world = minecraft.world;
 
 		if (event.phase == Phase.END) {
 			if (world != null) {
@@ -57,12 +57,12 @@ public class MainHandlerClient {
 	@SubscribeEvent
 	public void onRenderTick(RenderTickEvent event) {
 		final Minecraft minecraft = FMLClientHandler.instance().getClient();
-		final EntityPlayerSP player = minecraft.thePlayer;
+		final EntityPlayerSP player = minecraft.player;
 		final EntityPlayerSP playerBaseClient = PlayerUtil.getPlayerBaseClientFromPlayer(player, false);
-		if (player != null && player.worldObj.provider instanceof IGalacticraftWorldProvider && OxygenUtil.shouldDisplayTankGui(minecraft.currentScreen) && OxygenUtil.noAtmosphericCombustion(player.worldObj.provider)
+		if (player != null && player.world.provider instanceof IGalacticraftWorldProvider && OxygenUtil.shouldDisplayTankGui(minecraft.currentScreen) && OxygenUtil.noAtmosphericCombustion(player.world.provider)
 				&& !playerBaseClient.isSpectator()) {
-			if ((player.worldObj.provider instanceof CustomWorldProviderSpace)) {
-				CustomWorldProviderSpace provider = (CustomWorldProviderSpace) player.worldObj.provider;
+			if ((player.world.provider instanceof CustomWorldProviderSpace)) {
+				CustomWorldProviderSpace provider = (CustomWorldProviderSpace) player.world.provider;
 
 				if (Config.PRESSURE) {
 					int pressureLevel = provider.getPressureLevel();

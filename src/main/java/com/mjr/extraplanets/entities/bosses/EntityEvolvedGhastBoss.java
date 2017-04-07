@@ -74,7 +74,7 @@ public class EntityEvolvedGhastBoss extends EntityBossBase implements IMob, IEnt
 	public void onUpdate() {
 		super.onUpdate();
 
-		if (!this.worldObj.isRemote && this.worldObj.getDifficulty() == EnumDifficulty.PEACEFUL) {
+		if (!this.world.isRemote && this.world.getDifficulty() == EnumDifficulty.PEACEFUL) {
 			this.setDead();
 		}
 	}
@@ -168,7 +168,7 @@ public class EntityEvolvedGhastBoss extends EntityBossBase implements IMob, IEnt
 	 */
 	@Override
 	public boolean getCanSpawnHere() {
-		return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.worldObj.getDifficulty() != EnumDifficulty.PEACEFUL;
+		return this.rand.nextInt(20) == 0 && super.getCanSpawnHere() && this.world.getDifficulty() != EnumDifficulty.PEACEFUL;
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class EntityEvolvedGhastBoss extends EntityBossBase implements IMob, IEnt
 
             if (entitylivingbase.getDistanceSqToEntity(this.parentEntity) < 4096.0D && this.parentEntity.canEntityBeSeen(entitylivingbase))
             {
-                World world = this.parentEntity.worldObj;
+                World world = this.parentEntity.world;
                 ++this.attackTimer;
 
                 if (this.attackTimer == 10)
@@ -248,7 +248,7 @@ public class EntityEvolvedGhastBoss extends EntityBossBase implements IMob, IEnt
                     entitylargefireball.posX = this.parentEntity.posX + vec3d.xCoord * 4.0D;
                     entitylargefireball.posY = this.parentEntity.posY + this.parentEntity.height / 2.0F + 0.5D;
                     entitylargefireball.posZ = this.parentEntity.posZ + vec3d.zCoord * 4.0D;
-                    world.spawnEntityInWorld(entitylargefireball);
+                    world.spawnEntity(entitylargefireball);
                     this.attackTimer = -40;
                 }
             }
@@ -398,7 +398,7 @@ public class EntityEvolvedGhastBoss extends EntityBossBase implements IMob, IEnt
             {
                 axisalignedbb = axisalignedbb.offset(d0, d1, d2);
 
-                if (!this.parentEntity.worldObj.getCollisionBoxes(this.parentEntity, axisalignedbb).isEmpty())
+                if (!this.parentEntity.world.getCollisionBoxes(this.parentEntity, axisalignedbb).isEmpty())
                 {
                     return false;
                 }

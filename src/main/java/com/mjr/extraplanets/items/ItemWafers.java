@@ -53,7 +53,7 @@ public class ItemWafers extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
-		if (player.worldObj.isRemote) {
+		if (player.world.isRemote) {
 			for (int i = 0; i < names.length; i++)
 				if (itemStack.getMetadata() == i)
 					list.add(EnumColor.YELLOW + GCCoreUtil.translate("wafers." + ItemWafers.names[i] + ".desc"));

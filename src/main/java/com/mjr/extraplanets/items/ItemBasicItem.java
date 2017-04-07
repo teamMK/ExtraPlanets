@@ -33,7 +33,7 @@ public class ItemBasicItem extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack itemStack, EntityPlayer player, List list, boolean par4) {
-		if (player.worldObj.isRemote) {
+		if (player.world.isRemote) {
 			if (itemStack.getItem() == ExtraPlanets_Items.TIER_1_ARMOR_LAYER)
 				list.add(EnumColor.YELLOW + GCCoreUtil.translate("tier1ArmorLayer.desc"));
 			else if (itemStack.getItem() == ExtraPlanets_Items.TIER_2_ARMOR_LAYER)

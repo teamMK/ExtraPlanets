@@ -80,7 +80,7 @@ public class MainHandlerServer {
 
 	@SubscribeEvent
 	public void onPlayer(PlayerTickEvent event) {
-		if (event.player.worldObj.provider.getDimensionType().getId() == Config.JUPITER_ID) {
+		if (event.player.world.provider.getDimensionType().getId() == Config.JUPITER_ID) {
 			Random rand = new Random();
 			int addX = rand.nextInt(25);
 			int addZ = rand.nextInt(25);
@@ -90,7 +90,7 @@ public class MainHandlerServer {
 				addZ = -addZ;
 			int lightingSpawnChance = rand.nextInt(50);
 			if (lightingSpawnChance == 10) {
-				// event.player.worldObj.addWeatherEffect(new EntityLightningBolt(event.player.worldObj, event.player.posX + addX, event.player.worldObj.getHeight(new BlockPos(event.player.posX + addX, 0, (int) event.player.posZ + addZ)).getY(),
+				// event.player.world.addWeatherEffect(new EntityLightningBolt(event.player.world, event.player.posX + addX, event.player.world.getHeight(new BlockPos(event.player.posX + addX, 0, (int) event.player.posZ + addZ)).getY(),
 				// event.player.posZ + addZ));
 			}
 		}
@@ -135,7 +135,7 @@ public class MainHandlerServer {
 		final EntityLivingBase entityLiving = event.getEntityLiving();
 		if (entityLiving instanceof EntityPlayerMP) {
 			onPlayerUpdate((EntityPlayerMP) entityLiving);
-			if (OxygenUtil.isAABBInBreathableAirBlock(entityLiving.worldObj, entityLiving.getEntityBoundingBox(), true) == false)
+			if (OxygenUtil.isAABBInBreathableAirBlock(entityLiving.world, entityLiving.getEntityBoundingBox(), true) == false)
 				runChecks(event, entityLiving);
 		}
 	}
@@ -143,7 +143,7 @@ public class MainHandlerServer {
 	private void runChecks(LivingEvent.LivingUpdateEvent event, EntityLivingBase entityLiving) {
 		if (((EntityPlayerMP) entityLiving).capabilities.isCreativeMode)
 			return;
-		if ((entityLiving.worldObj.provider instanceof IGalacticraftWorldProvider) && (((EntityPlayerMP) entityLiving).worldObj.provider instanceof CustomWorldProviderSpace)) {
+		if ((entityLiving.world.provider instanceof IGalacticraftWorldProvider) && (((EntityPlayerMP) entityLiving).world.provider instanceof CustomWorldProviderSpace)) {
 			if (Config.PRESSURE)
 				checkPressure(event, entityLiving);
 			if (Config.RADIATION)
@@ -172,7 +172,7 @@ public class MainHandlerServer {
 			doDamage = true;
 
 		if (doDamage) {
-			float tempLevel = ((CustomWorldProviderSpace) playerMP.worldObj.provider).getPressureLevel();
+			float tempLevel = ((CustomWorldProviderSpace) playerMP.world.provider).getPressureLevel();
 			tempLevel = (tempLevel / 100) * 8;
 			playerMP.attackEntityFrom(DamageSourceEP.pressure, tempLevel);
 		}
@@ -181,7 +181,7 @@ public class MainHandlerServer {
 	private void checkRadiation(LivingEvent.LivingUpdateEvent event, EntityLivingBase entityLiving) {
 		EntityPlayerMP playerMP = (EntityPlayerMP) entityLiving;
 
-		CustomWorldProviderSpace provider = (CustomWorldProviderSpace) playerMP.worldObj.provider;
+		CustomWorldProviderSpace provider = (CustomWorldProviderSpace) playerMP.world.provider;
 		// Normal/Nothing 0.005
 		// Tier 1 0.0045
 		// Tier 2 0.004
@@ -229,7 +229,7 @@ public class MainHandlerServer {
 
 	public void onPlayerUpdate(EntityPlayerMP player) {
 		int tick = player.ticksExisted - 1;
-		final boolean isInGCDimension = player.worldObj.provider instanceof IGalacticraftWorldProvider;
+		final boolean isInGCDimension = player.world.provider instanceof IGalacticraftWorldProvider;
 		IStatsCapability stats = player.getCapability(CapabilityStatsHandler.EP_STATS_CAPABILITY, null);
 
 		if (isInGCDimension && Config.RADIATION) {
@@ -240,7 +240,7 @@ public class MainHandlerServer {
 	}
 
 	protected void sendSolarRadiationPacket(EntityPlayerMP player, IStatsCapability stats) {
-		ExtraPlanets.packetPipeline.sendTo(new PacketSimpleEP(EnumSimplePacket.C_UPDATE_SOLAR_RADIATION_LEVEL, player.worldObj.provider.getDimensionType().getId(), new Object[] { stats.getRadiationLevel() }), player);
+		ExtraPlanets.packetPipeline.sendTo(new PacketSimpleEP(EnumSimplePacket.C_UPDATE_SOLAR_RADIATION_LEVEL, player.world.provider.getDimensionType().getId(), new Object[] { stats.getRadiationLevel() }), player);
 	}
 
 }
