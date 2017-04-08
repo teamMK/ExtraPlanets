@@ -368,7 +368,7 @@ public class EntityEvolvedGhastBoss extends EntityBossBase implements IMob, IEnt
                 if (this.courseChangeCooldown-- <= 0)
                 {
                     this.courseChangeCooldown += this.parentEntity.getRNG().nextInt(5) + 2;
-                    d3 = MathHelper.sqrt_double(d3);
+                    d3 = MathHelper.sqrt(d3);
 
                     if (this.isNotColliding(this.posX, this.posY, this.posZ, d3))
                     {

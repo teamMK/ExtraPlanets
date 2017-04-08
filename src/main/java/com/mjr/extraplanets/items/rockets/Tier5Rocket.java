@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -42,9 +43,10 @@ public class Tier5Rocket extends Item implements IHoldableItem {
 	}
 
 	@Override
-	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		boolean padFound = false;
 		TileEntity tile = null;
+		ItemStack stack = playerIn.getHeldItem(hand);
 
 		if (worldIn.isRemote && playerIn instanceof EntityPlayerSP) {
 			ClientProxyCore.playerClientHandler.onBuild(8, (EntityPlayerSP) playerIn);
@@ -98,9 +100,9 @@ public class Tier5Rocket extends Item implements IHoldableItem {
 				}
 
 				if (!playerIn.capabilities.isCreativeMode) {
-					stack.stackSize--;
+					stack.shrink(1);
 
-					if (stack.stackSize <= 0) {
+					if (stack.getCount() <= 0) {
 						stack = null;
 					}
 				}
@@ -115,9 +117,8 @@ public class Tier5Rocket extends Item implements IHoldableItem {
 		return EnumActionResult.PASS;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, NonNullList<ItemStack> par3List) {
 		for (int i = 0; i < EnumRocketType.values().length; i++) {
 			par3List.add(new ItemStack(par1, 1, i));
 		}

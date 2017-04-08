@@ -55,7 +55,7 @@ public class ContainerBasicSolarEvaporationChamber extends Container
     @Override
     public boolean canInteractWith(EntityPlayer par1EntityPlayer)
     {
-        return this.tileEntity.isUseableByPlayer(par1EntityPlayer);
+        return this.tileEntity.isUsableByPlayer(par1EntityPlayer);
     }
 
     /**
@@ -117,7 +117,7 @@ public class ContainerBasicSolarEvaporationChamber extends Container
                 }
             }
 
-            if (var4.stackSize == 0)
+            if (var4.getCount() == 0)
             {
                 slot.putStack((ItemStack) null);
             }
@@ -126,12 +126,12 @@ public class ContainerBasicSolarEvaporationChamber extends Container
                 slot.onSlotChanged();
             }
 
-            if (var4.stackSize == var2.stackSize)
+            if (var4.getCount() == var2.getCount())
             {
                 return null;
             }
 
-            slot.onPickupFromSlot(par1EntityPlayer, var4);
+            slot.onTake(par1EntityPlayer, var4);
         }
 
         return var2;

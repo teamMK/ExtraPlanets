@@ -42,8 +42,8 @@ public class Tier2SpaceSuitArmor extends ItemArmor implements IPressureSuit, IRa
 	@Override
 	public int gravityOverrideIfLow(EntityPlayer p) {
 		for (int i = 0; i < 4; i++)
-			if (p.inventory.armorInventory[i] != null)
-				if (p.inventory.armorInventory[i].getItem() == ExtraPlanets_Armor.TIER_2_SPACE_SUIT_BOOTS)
+			if (p.inventory.armorItemInSlot(i) != null)
+				if (p.inventory.armorItemInSlot(i).getItem() == ExtraPlanets_Armor.TIER_2_SPACE_SUIT_BOOTS)
 					return 55;
 		return 0;
 	}
@@ -51,8 +51,8 @@ public class Tier2SpaceSuitArmor extends ItemArmor implements IPressureSuit, IRa
 	@Override
 	public int gravityOverrideIfHigh(EntityPlayer p) {
 		for (int i = 0; i < 4; i++)
-			if (p.inventory.armorInventory[i] != null)
-				if (p.inventory.armorInventory[i].getItem() == ExtraPlanets_Armor.TIER_2_SPACE_SUIT_BOOTS)
+			if (p.inventory.armorItemInSlot(i) != null)
+				if (p.inventory.armorItemInSlot(i).getItem() == ExtraPlanets_Armor.TIER_2_SPACE_SUIT_BOOTS)
 					return 75;
 		return 0;
 	}

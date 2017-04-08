@@ -4,9 +4,7 @@ import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.recipe.SchematicRegistry;
 import micdoodle8.mods.galacticraft.core.GCItems;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -50,51 +48,30 @@ import com.mjr.extraplanets.items.armor.ExtraPlanets_Armor;
 import com.mjr.extraplanets.items.tools.ExtraPlanets_Tools;
 import com.mjr.extraplanets.moons.ExtraPlanets_Moons;
 import com.mjr.extraplanets.moons.Callisto.event.CallistoEvents;
-import com.mjr.extraplanets.moons.Callisto.worldgen.CallistoBiomes;
 import com.mjr.extraplanets.moons.Deimos.event.DeimosEvents;
-import com.mjr.extraplanets.moons.Deimos.worldgen.DeimosBiomes;
 import com.mjr.extraplanets.moons.Europa.event.EuropaEvents;
-import com.mjr.extraplanets.moons.Europa.worldgen.EuropaBiomes;
 import com.mjr.extraplanets.moons.Ganymede.event.GanymedeEvents;
-import com.mjr.extraplanets.moons.Ganymede.worldgen.GanymedeBiomes;
 import com.mjr.extraplanets.moons.Iapetus.event.IapetusEvents;
-import com.mjr.extraplanets.moons.Iapetus.worldgen.IapetusBiomes;
 import com.mjr.extraplanets.moons.Io.event.IoEvents;
-import com.mjr.extraplanets.moons.Io.worldgen.IoBiomes;
 import com.mjr.extraplanets.moons.Oberon.event.OberonEvents;
-import com.mjr.extraplanets.moons.Oberon.worldgen.OberonBiomes;
 import com.mjr.extraplanets.moons.Phobos.event.PhobosEvents;
-import com.mjr.extraplanets.moons.Phobos.worldgen.PhobosBiomes;
 import com.mjr.extraplanets.moons.Rhea.event.RheaEvents;
-import com.mjr.extraplanets.moons.Rhea.worldgen.RheaBiomes;
 import com.mjr.extraplanets.moons.Titan.event.TitanEvents;
-import com.mjr.extraplanets.moons.Titan.worldgen.TitanBiomes;
 import com.mjr.extraplanets.moons.Titania.event.TitaniaEvents;
-import com.mjr.extraplanets.moons.Titania.worldgen.TitaniaBiomes;
 import com.mjr.extraplanets.moons.Triton.event.TritonEvents;
-import com.mjr.extraplanets.moons.Triton.worldgen.TritonBiomes;
 import com.mjr.extraplanets.network.ExtraPlanetsChannelHandler;
 import com.mjr.extraplanets.planets.ExtraPlanets_Planets;
 import com.mjr.extraplanets.planets.ExtraPlanets_SpaceStations;
 import com.mjr.extraplanets.planets.Ceres.event.CeresEvents;
-import com.mjr.extraplanets.planets.Ceres.worldgen.CeresBiomes;
 import com.mjr.extraplanets.planets.Eris.event.ErisEvents;
-import com.mjr.extraplanets.planets.Eris.worldgen.ErisBiomes;
 import com.mjr.extraplanets.planets.Jupiter.event.JupiterEvents;
-import com.mjr.extraplanets.planets.Jupiter.worldgen.JupiterBiomes;
 import com.mjr.extraplanets.planets.Kepler22b.event.Kepler22bEvents;
-import com.mjr.extraplanets.planets.Kepler22b.worldgen.biome.BiomeGenBaseKepler22b;
 import com.mjr.extraplanets.planets.KuiperBelt.KuiperBeltEvents;
 import com.mjr.extraplanets.planets.Mercury.event.MercuryEvents;
-import com.mjr.extraplanets.planets.Mercury.worldgen.MercuryBiomes;
 import com.mjr.extraplanets.planets.Neptune.event.NeptuneEvents;
-import com.mjr.extraplanets.planets.Neptune.worldgen.NeptuneBiomes;
 import com.mjr.extraplanets.planets.Pluto.event.PlutoEvents;
-import com.mjr.extraplanets.planets.Pluto.worldgen.PlutoBiomes;
 import com.mjr.extraplanets.planets.Saturn.event.SaturnEvents;
-import com.mjr.extraplanets.planets.Saturn.worldgen.SaturnBiomes;
 import com.mjr.extraplanets.planets.Uranus.event.UranusEvents;
-import com.mjr.extraplanets.planets.Uranus.worldgen.UranusBiomes;
 import com.mjr.extraplanets.proxy.CommonProxy;
 import com.mjr.extraplanets.recipes.ExtraPlanets_Recipes;
 import com.mjr.extraplanets.schematic.SchematicTier10Rocket;
@@ -106,7 +83,7 @@ import com.mjr.extraplanets.schematic.SchematicTier8Rocket;
 import com.mjr.extraplanets.schematic.SchematicTier9Rocket;
 import com.mjr.extraplanets.util.RegisterHelper;
 
-@Mod(modid = Constants.modID, name = Constants.modName, version = Constants.modVersion, dependencies = "required-after:galacticraftcore;required-after:galacticraftplanets;required-after:Forge@[13.20.0.2261,);")
+@Mod(modid = Constants.modID, name = Constants.modName, version = Constants.modVersion, dependencies = "required-after:galacticraftcore;required-after:galacticraftplanets;required-after:forge@(13.20.0.2222,);")
 public class ExtraPlanets {
 
 	@SidedProxy(clientSide = "com.mjr.extraplanets.proxy.ClientProxy", serverSide = "com.mjr.extraplanets.proxy.CommonProxy")
@@ -120,62 +97,62 @@ public class ExtraPlanets {
 	// Blocks Creative Tab
 	public static CreativeTabs BlocksTab = new CreativeTabs("SpaceBlocksTab") {
 		@Override
-		public Item getTabIconItem() {
+		public ItemStack getTabIconItem() {
 			if (Config.REFINERY_ADVANCED)
-				return Item.getItemFromBlock(ExtraPlanets_Machines.REFINERY_ADVANCED);
+				return new ItemStack(ExtraPlanets_Machines.REFINERY_ADVANCED);
 			else
-				return Item.getItemFromBlock(ExtraPlanets_Blocks.DENSE_ICE);
+				return new ItemStack(ExtraPlanets_Blocks.DENSE_ICE);
 		}
 	};
 	// Items Creative Tab
 	public static CreativeTabs ItemsTab = new CreativeTabs("SpaceItemsTab") {
 		@Override
-		public Item getTabIconItem() {
+		public ItemStack getTabIconItem() {
 			if (Config.MERCURY)
-				return ExtraPlanets_Items.TIER_4_ROCKET;
+				return new ItemStack(ExtraPlanets_Items.TIER_4_ROCKET);
 			else if (Config.JUPITER)
-				return ExtraPlanets_Items.TIER_5_ROCKET;
+				return new ItemStack(ExtraPlanets_Items.TIER_5_ROCKET);
 			else if (Config.SATURN)
-				return ExtraPlanets_Items.TIER_6_ROCKET;
+				return new ItemStack(ExtraPlanets_Items.TIER_6_ROCKET);
 			else if (Config.URANUS)
-				return ExtraPlanets_Items.TIER_7_ROCKET;
+				return new ItemStack(ExtraPlanets_Items.TIER_7_ROCKET);
 			else if (Config.NEPTUNE)
-				return ExtraPlanets_Items.TIER_8_ROCKET;
+				return new ItemStack(ExtraPlanets_Items.TIER_8_ROCKET);
 			else if (Config.PLUTO)
-				return ExtraPlanets_Items.TIER_9_ROCKET;
+				return new ItemStack(ExtraPlanets_Items.TIER_9_ROCKET);
 			else if (Config.ERIS)
-				return ExtraPlanets_Items.TIER_10_ROCKET;
-			return GCItems.rocketTier1;
+				return new ItemStack(ExtraPlanets_Items.TIER_10_ROCKET);
+			return new ItemStack(GCItems.rocketTier1);
 		}
 	};
 	// Tools Creative Tab
 	public static CreativeTabs ToolsTab = new CreativeTabs("SpaceToolsTab") {
 		@Override
-		public Item getTabIconItem() {
+		public ItemStack getTabIconItem() {
 			if (Config.MERCURY)
-				return ExtraPlanets_Tools.carbonPickaxe;
+				return new ItemStack(ExtraPlanets_Tools.carbonPickaxe);
 			else if (Config.JUPITER)
-				return ExtraPlanets_Tools.palladiumPickaxe;
+				return new ItemStack(ExtraPlanets_Tools.palladiumPickaxe);
 			else if (Config.SATURN)
-				return ExtraPlanets_Tools.magnesiumPickaxe;
+				return new ItemStack(ExtraPlanets_Tools.magnesiumPickaxe);
 			else if (Config.URANUS)
-				return ExtraPlanets_Tools.crystalPickaxe;
-			return GCItems.steelPickaxe;
+				return new ItemStack(ExtraPlanets_Tools.crystalPickaxe);
+			return new ItemStack(GCItems.steelPickaxe);
 		}
 	};
 	// Armour Creative Tab
 	public static CreativeTabs ArmorTab = new CreativeTabs("SpaceArmorTab") {
 		@Override
-		public Item getTabIconItem() {
+		public ItemStack getTabIconItem() {
 			if (Config.MERCURY)
-				return ExtraPlanets_Armor.CARBON_CHEST;
+				return new ItemStack(ExtraPlanets_Armor.CARBON_CHEST);
 			else if (Config.JUPITER)
-				return ExtraPlanets_Armor.PALLASIUM_CHEST;
+				return new ItemStack(ExtraPlanets_Armor.PALLASIUM_CHEST);
 			else if (Config.SATURN)
-				return ExtraPlanets_Armor.MAGNESIUM_CHEST;
+				return new ItemStack(ExtraPlanets_Armor.MAGNESIUM_CHEST);
 			else if (Config.URANUS)
-				return ExtraPlanets_Armor.CRYSTAL_CHEST;
-			return GCItems.steelChestplate;
+				return new ItemStack(ExtraPlanets_Armor.CRYSTAL_CHEST);
+			return new ItemStack(GCItems.steelChestplate);
 		}
 	};
 
@@ -272,8 +249,6 @@ public class ExtraPlanets {
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		// Register Biomes
-		registerBiomes();
 
 		// Initialization/Registering Methods For SolarSystems/Planets/Moons/SpaceStations
 		ExtraPlanets_SolarSystems.init();
@@ -365,38 +340,6 @@ public class ExtraPlanets {
 			RegisterHelper.registerExtraPlanetsMobEntity(EntityCreeperBossPluto.class, "CreeperBossPluto", 894731, 0);
 		if (Config.ERIS)
 			RegisterHelper.registerExtraPlanetsMobEntity(EntityCreeperBossEris.class, "CreeperBossEris", 894731, 0);
-	}
-
-	public static void registerBiomes() {
-		// Planets
-		Biome.registerBiome(Config.MERCURY_BIOME_ID, MercuryBiomes.mercury.getBiomeName(), MercuryBiomes.mercury);
-		Biome.registerBiome(Config.CERES_BIOME_ID, CeresBiomes.ceres.getBiomeName(), CeresBiomes.ceres);
-		Biome.registerBiome(Config.JUPITER_BIOME_ID, JupiterBiomes.jupiter.getBiomeName(), JupiterBiomes.jupiter);
-		Biome.registerBiome(Config.SATURN_BIOME_ID, SaturnBiomes.saturn.getBiomeName(), SaturnBiomes.saturn);
-		Biome.registerBiome(Config.URANUS_BIOME_ID, UranusBiomes.uranus.getBiomeName(), UranusBiomes.uranus);
-		Biome.registerBiome(Config.NEPTUNE_BIOME_ID, NeptuneBiomes.neptune.getBiomeName(), NeptuneBiomes.neptune);
-		Biome.registerBiome(Config.PLUTO_BIOME_ID, PlutoBiomes.pluto.getBiomeName(), PlutoBiomes.pluto);
-		Biome.registerBiome(Config.ERIS_BIOME_ID, ErisBiomes.eris.getBiomeName(), ErisBiomes.eris);
-		Biome.registerBiome(Config.TRITON_BIOME_ID, TritonBiomes.triton.getBiomeName(), TritonBiomes.triton);
-
-		Biome.registerBiome(Config.KEPLER22B_PLAINS_BIOME_ID, BiomeGenBaseKepler22b.kepler22bPlains.getBiomeName(), BiomeGenBaseKepler22b.kepler22bPlains);
-		Biome.registerBiome(Config.KEPLER22B_BLUE_FOREST_BIOME_ID, BiomeGenBaseKepler22b.kepler22bBlueForest.getBiomeName(), BiomeGenBaseKepler22b.kepler22bBlueForest);
-		Biome.registerBiome(Config.KEPLER22B_RED_FOREST_BIOME_ID, BiomeGenBaseKepler22b.kepler22bRedForest.getBiomeName(), BiomeGenBaseKepler22b.kepler22bRedForest);
-		Biome.registerBiome(Config.KEPLER22B_PURPLE_FOREST_BIOME_ID, BiomeGenBaseKepler22b.kepler22bPurpleForest.getBiomeName(), BiomeGenBaseKepler22b.kepler22bPurpleForest);
-		Biome.registerBiome(Config.KEPLER22B_YELLOW_FOREST_BIOME_ID, BiomeGenBaseKepler22b.kepler22bYellowForest.getBiomeName(), BiomeGenBaseKepler22b.kepler22bYellowForest);
-
-		// Moons
-		Biome.registerBiome(Config.CALLISTO_BIOME_ID, CallistoBiomes.callisto.getBiomeName(), CallistoBiomes.callisto);
-		Biome.registerBiome(Config.DEIMOS_BIOME_ID, DeimosBiomes.deimos.getBiomeName(), DeimosBiomes.deimos);
-		Biome.registerBiome(Config.EUROPA_BIOME_ID, EuropaBiomes.europa.getBiomeName(), EuropaBiomes.europa);
-		Biome.registerBiome(Config.GANTMEDE_BIOME_ID, GanymedeBiomes.ganymede.getBiomeName(), GanymedeBiomes.ganymede);
-		Biome.registerBiome(Config.IAPETUS_BIOME_ID, IapetusBiomes.iapetus.getBiomeName(), IapetusBiomes.iapetus);
-		Biome.registerBiome(Config.IO_BIOME_ID, IoBiomes.io.getBiomeName(), IoBiomes.io);
-		Biome.registerBiome(Config.OBERON_BIOME_ID, OberonBiomes.oberon.getBiomeName(), OberonBiomes.oberon);
-		Biome.registerBiome(Config.PHOBOS_BIOME_ID, PhobosBiomes.phobos.getBiomeName(), PhobosBiomes.phobos);
-		Biome.registerBiome(Config.RHEA_BIOME_ID, RheaBiomes.rhea.getBiomeName(), RheaBiomes.rhea);
-		Biome.registerBiome(Config.TITAN_BIOME_ID, TitanBiomes.titan.getBiomeName(), TitanBiomes.titan);
-		Biome.registerBiome(Config.TITANIA_BIOME_ID, TitaniaBiomes.titania.getBiomeName(), TitaniaBiomes.titania);
 	}
 
 	private void registerSchematicsRecipes() {

@@ -1,6 +1,7 @@
 package com.mjr.extraplanets.entities;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -37,7 +38,7 @@ public class EntityNuclearBombPrimed extends EntityTNTPrimed {
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
 		this.motionY -= 0.03999999910593033D;
-		this.moveEntity(this.motionX, this.motionY, this.motionZ);
+        this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
 		this.motionX *= 0.9800000190734863D;
 		this.motionY *= 0.9800000190734863D;
 		this.motionZ *= 0.9800000190734863D;

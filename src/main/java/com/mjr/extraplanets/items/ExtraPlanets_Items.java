@@ -471,26 +471,26 @@ public class ExtraPlanets_Items {
 	}
 
 	private static void registerFluidContainer() {
-		if (Config.SATURN) {
-			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.glowstone_fluid, new ItemStack(BUCKET_GLOWSTONE, 1, 0), new ItemStack(Items.BUCKET));
-		}
-		if (Config.JUPITER) {
-			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.magma_fluid, new ItemStack(BUCKET_MAGMA, 1, 0), new ItemStack(Items.BUCKET));
-		}
-		if (Config.NEPTUNE) {
-			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.nitrogen_fluid, new ItemStack(BUCKET_NITROGEN, 1, 0), new ItemStack(Items.BUCKET));
-		}
-		if (Config.URANUS) {
-			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.frozen_water_fluid, new ItemStack(BUCKET_FROZEN_WATER, 1, 0), new ItemStack(Items.BUCKET));
-		}
-		if (Config.CERES) {
-			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.salt_fluid, new ItemStack(BUCKET_SALT, 1, 0), new ItemStack(Items.BUCKET));
-		}
-		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.cleanWater_fluid, new ItemStack(BUCKET_CLEAN_WATER, 1, 0), new ItemStack(Items.BUCKET));
-		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.infectedWater_fluid, new ItemStack(BUCKET_INFECTED_WATER, 1, 0), new ItemStack(Items.BUCKET));
-		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.radioactiveWater_fluid, new ItemStack(BUCKET_RADIOACTIVE_WATER, 1, 0), new ItemStack(Items.BUCKET));
-		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.methane_fluid, new ItemStack(BUCKET_METHANE, 1, 0), new ItemStack(Items.BUCKET));
-		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.nitrogen_ice_fluid, new ItemStack(BUCKET_NITROGEN_ICE, 1, 0), new ItemStack(Items.BUCKET));
+//		if (Config.SATURN) {
+//			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.glowstone_fluid, new ItemStack(BUCKET_GLOWSTONE, 1, 0), new ItemStack(Items.BUCKET));
+//		}
+//		if (Config.JUPITER) {
+//			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.magma_fluid, new ItemStack(BUCKET_MAGMA, 1, 0), new ItemStack(Items.BUCKET));
+//		}
+//		if (Config.NEPTUNE) {
+//			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.nitrogen_fluid, new ItemStack(BUCKET_NITROGEN, 1, 0), new ItemStack(Items.BUCKET));
+//		}
+//		if (Config.URANUS) {
+//			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.frozen_water_fluid, new ItemStack(BUCKET_FROZEN_WATER, 1, 0), new ItemStack(Items.BUCKET));
+//		}
+//		if (Config.CERES) {
+//			FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.salt_fluid, new ItemStack(BUCKET_SALT, 1, 0), new ItemStack(Items.BUCKET));
+//		}
+//		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.cleanWater_fluid, new ItemStack(BUCKET_CLEAN_WATER, 1, 0), new ItemStack(Items.BUCKET));
+//		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.infectedWater_fluid, new ItemStack(BUCKET_INFECTED_WATER, 1, 0), new ItemStack(Items.BUCKET));
+//		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.radioactiveWater_fluid, new ItemStack(BUCKET_RADIOACTIVE_WATER, 1, 0), new ItemStack(Items.BUCKET));
+//		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.methane_fluid, new ItemStack(BUCKET_METHANE, 1, 0), new ItemStack(Items.BUCKET));
+//		FluidContainerRegistry.registerFluidContainer(ExtraPlanets_Fluids.nitrogen_ice_fluid, new ItemStack(BUCKET_NITROGEN_ICE, 1, 0), new ItemStack(Items.BUCKET));
 	}
 
 	public static void OreDictionaryRegister() {

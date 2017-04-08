@@ -1,7 +1,5 @@
 package com.mjr.extraplanets.items;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -10,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -66,8 +65,8 @@ public class ItemAppleDiamond extends ItemFood {
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item p_150895_1_, CreativeTabs p_150895_2_, List p_150895_3_) {
-		p_150895_3_.add(new ItemStack(p_150895_1_, 1, 0));
-		p_150895_3_.add(new ItemStack(p_150895_1_, 1, 1));
+	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		subItems.add(new ItemStack(itemIn, 1, 0));
+		subItems.add(new ItemStack(itemIn, 1, 1));
 	}
 }

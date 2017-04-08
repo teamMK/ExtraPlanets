@@ -21,6 +21,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -31,10 +32,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import com.mjr.extraplanets.ExtraPlanets;
 import com.mjr.extraplanets.entities.rockets.EntityTier8Rocket;
 
-public class Tier8Rocket extends Item implements IHoldableItem
-{
-	public Tier8Rocket(String assetName)
-	{
+public class Tier8Rocket extends Item implements IHoldableItem {
+	public Tier8Rocket(String assetName) {
 		super();
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
@@ -43,105 +42,84 @@ public class Tier8Rocket extends Item implements IHoldableItem
 		this.setCreativeTab(ExtraPlanets.ItemsTab);
 	}
 
-    @Override
-    public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-        boolean padFound = false;
-        TileEntity tile = null;
-
-        if (worldIn.isRemote && playerIn instanceof EntityPlayerSP)
-        {
-            ClientProxyCore.playerClientHandler.onBuild(8, (EntityPlayerSP) playerIn);
-            return EnumActionResult.FAIL;
-        }
-        else
-        {
-            float centerX = -1;
-            float centerY = -1;
-            float centerZ = -1;
-
-            for (int i = -1; i < 2; i++)
-            {
-                for (int j = -1; j < 2; j++)
-                {
-                    BlockPos pos1 = pos.add(i, 0, j);
-                    IBlockState state = worldIn.getBlockState(pos1);
-                    final Block id = state.getBlock();
-                    int meta = id.getMetaFromState(state);
-
-                    if (id == GCBlocks.landingPadFull && meta == 0)
-                    {
-                        padFound = true;
-                        tile = worldIn.getTileEntity(pos.add(i, 0, j));
-
-                        centerX = pos.getX() + i + 0.5F;
-                        centerY = pos.getY() + 0.4F;
-                        centerZ = pos.getZ() + j + 0.5F;
-
-                        break;
-                    }
-                }
-
-                if (padFound)
-                {
-                    break;
-                }
-            }
-
-            if (padFound)
-            {
-                //Check whether there is already a rocket on the pad
-                if (tile instanceof TileEntityLandingPad)
-                {
-                    if (((TileEntityLandingPad) tile).getDockedEntity() != null)
-                    {
-                        return EnumActionResult.FAIL;
-                    }
-                }
-                else
-                {
-                    return EnumActionResult.FAIL;
-                }
-
-                final EntityTier8Rocket spaceship = new EntityTier8Rocket(worldIn, centerX, centerY, centerZ, EnumRocketType.values()[stack.getItemDamage()]);
-
-                spaceship.setPosition(spaceship.posX, spaceship.posY + spaceship.getOnPadYOffset(), spaceship.posZ);
-                worldIn.spawnEntity(spaceship);
-
-                if (stack.hasTagCompound() && stack.getTagCompound().hasKey("RocketFuel"))
-                {
-                    spaceship.fuelTank.fill(new FluidStack(GCFluids.fluidFuel, stack.getTagCompound().getInteger("RocketFuel")), true);
-                }
-
-                if (!playerIn.capabilities.isCreativeMode)
-                {
-                    stack.stackSize--;
-
-                    if (stack.stackSize <= 0)
-                    {
-                        stack = null;
-                    }
-                }
-
-                if (spaceship.rocketType.getPreFueled())
-                {
-                    spaceship.fuelTank.fill(new FluidStack(GCFluids.fluidFuel, spaceship.getMaxFuel()), true);
-                }
-            }
-            else
-            {
-                return EnumActionResult.FAIL;
-            }
-        }
-        return EnumActionResult.PASS;
-    }
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List)
-	{
-		for (int i = 0; i < EnumRocketType.values().length; i++)
-		{
+	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		boolean padFound = false;
+		TileEntity tile = null;
+		ItemStack stack = playerIn.getHeldItem(hand);
+
+		if (worldIn.isRemote && playerIn instanceof EntityPlayerSP) {
+			ClientProxyCore.playerClientHandler.onBuild(8, (EntityPlayerSP) playerIn);
+			return EnumActionResult.FAIL;
+		} else {
+			float centerX = -1;
+			float centerY = -1;
+			float centerZ = -1;
+
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					BlockPos pos1 = pos.add(i, 0, j);
+					IBlockState state = worldIn.getBlockState(pos1);
+					final Block id = state.getBlock();
+					int meta = id.getMetaFromState(state);
+
+					if (id == GCBlocks.landingPadFull && meta == 0) {
+						padFound = true;
+						tile = worldIn.getTileEntity(pos.add(i, 0, j));
+
+						centerX = pos.getX() + i + 0.5F;
+						centerY = pos.getY() + 0.4F;
+						centerZ = pos.getZ() + j + 0.5F;
+
+						break;
+					}
+				}
+
+				if (padFound) {
+					break;
+				}
+			}
+
+			if (padFound) {
+				// Check whether there is already a rocket on the pad
+				if (tile instanceof TileEntityLandingPad) {
+					if (((TileEntityLandingPad) tile).getDockedEntity() != null) {
+						return EnumActionResult.FAIL;
+					}
+				} else {
+					return EnumActionResult.FAIL;
+				}
+
+				final EntityTier8Rocket spaceship = new EntityTier8Rocket(worldIn, centerX, centerY, centerZ, EnumRocketType.values()[stack.getItemDamage()]);
+
+				spaceship.setPosition(spaceship.posX, spaceship.posY + spaceship.getOnPadYOffset(), spaceship.posZ);
+				worldIn.spawnEntity(spaceship);
+
+				if (stack.hasTagCompound() && stack.getTagCompound().hasKey("RocketFuel")) {
+					spaceship.fuelTank.fill(new FluidStack(GCFluids.fluidFuel, stack.getTagCompound().getInteger("RocketFuel")), true);
+				}
+
+				if (!playerIn.capabilities.isCreativeMode) {
+					stack.shrink(1);
+
+					if (stack.getCount() <= 0) {
+						stack = null;
+					}
+				}
+
+				if (spaceship.rocketType.getPreFueled()) {
+					spaceship.fuelTank.fill(new FluidStack(GCFluids.fluidFuel, spaceship.getMaxFuel()), true);
+				}
+			} else {
+				return EnumActionResult.FAIL;
+			}
+		}
+		return EnumActionResult.PASS;
+	}
+
+	@Override
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, NonNullList<ItemStack> par3List) {
+		for (int i = 0; i < EnumRocketType.values().length; i++) {
 			par3List.add(new ItemStack(par1, 1, i));
 		}
 	}
@@ -149,57 +127,46 @@ public class Tier8Rocket extends Item implements IHoldableItem
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List par2List, boolean b)
-	{
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer player, List par2List, boolean b) {
 		EnumRocketType type;
 
-		if (par1ItemStack.getItemDamage() < 10)
-		{
+		if (par1ItemStack.getItemDamage() < 10) {
 			type = EnumRocketType.values()[par1ItemStack.getItemDamage()];
-		}
-		else
-		{
+		} else {
 			type = EnumRocketType.values()[par1ItemStack.getItemDamage() - 10];
 		}
 
-		if (!type.getTooltip().isEmpty())
-		{
+		if (!type.getTooltip().isEmpty()) {
 			par2List.add(type.getTooltip());
 		}
 
-		if (type.getPreFueled())
-		{
+		if (type.getPreFueled()) {
 			par2List.add(EnumColor.RED + "\u00a7o" + GCCoreUtil.translate("gui.creative_only.desc"));
 		}
 
-		if (par1ItemStack.hasTagCompound() && par1ItemStack.getTagCompound().hasKey("RocketFuel"))
-		{
+		if (par1ItemStack.hasTagCompound() && par1ItemStack.getTagCompound().hasKey("RocketFuel")) {
 			EntityTier8Rocket rocket = new EntityTier8Rocket(FMLClientHandler.instance().getWorldClient(), 0, 0, 0, EnumRocketType.values()[par1ItemStack.getItemDamage()]);
 			par2List.add(GCCoreUtil.translate("gui.message.fuel.name") + ": " + par1ItemStack.getTagCompound().getInteger("RocketFuel") + " / " + rocket.fuelTank.getCapacity());
 		}
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack par1ItemStack)
-	{
+	public String getUnlocalizedName(ItemStack par1ItemStack) {
 		return super.getUnlocalizedName(par1ItemStack) + ".t8Rocket";
 	}
 
 	@Override
-	public boolean shouldHoldLeftHandUp(EntityPlayer player)
-	{
+	public boolean shouldHoldLeftHandUp(EntityPlayer player) {
 		return true;
 	}
 
 	@Override
-	public boolean shouldHoldRightHandUp(EntityPlayer player)
-	{
+	public boolean shouldHoldRightHandUp(EntityPlayer player) {
 		return true;
 	}
 
 	@Override
-	public boolean shouldCrouch(EntityPlayer player)
-	{
+	public boolean shouldCrouch(EntityPlayer player) {
 		return true;
 	}
 }

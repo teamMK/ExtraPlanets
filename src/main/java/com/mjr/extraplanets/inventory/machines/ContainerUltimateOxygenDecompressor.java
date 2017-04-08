@@ -37,7 +37,7 @@ public class ContainerUltimateOxygenDecompressor extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer var1) {
-		return this.tileEntity.isUseableByPlayer(var1);
+		return this.tileEntity.isUsableByPlayer(var1);
 	}
 
 	@Override
@@ -74,17 +74,17 @@ public class ContainerUltimateOxygenDecompressor extends Container {
 				}
 			}
 
-			if (stack.stackSize == 0) {
+			if (stack.getCount() == 0) {
 				slot.putStack((ItemStack) null);
 			} else {
 				slot.onSlotChanged();
 			}
 
-			if (stack.stackSize == var2.stackSize) {
+			if (stack.getCount() == var2.getCount()) {
 				return null;
 			}
 
-			slot.onPickupFromSlot(par1EntityPlayer, stack);
+			slot.onTake(par1EntityPlayer, stack);
 		}
 
 		return var2;

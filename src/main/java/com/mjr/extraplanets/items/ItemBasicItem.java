@@ -62,9 +62,9 @@ public class ItemBasicItem extends Item {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		playerIn.setActiveHand(hand);
-		return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn){
+		playerIn.setActiveHand(handIn);
+        return new ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class ItemBasicItem extends Item {
 			EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer) entityLiving : null;
 
 			if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
-				--stack.stackSize;
+				stack.shrink(1);;
 			}
 
 			if (!worldIn.isRemote) {
@@ -86,7 +86,7 @@ public class ItemBasicItem extends Item {
 			}
 
 			if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
-				if (stack.stackSize <= 0) {
+				if (stack.getCount() <= 0) {
 					return new ItemStack(Items.GLASS_BOTTLE);
 				}
 

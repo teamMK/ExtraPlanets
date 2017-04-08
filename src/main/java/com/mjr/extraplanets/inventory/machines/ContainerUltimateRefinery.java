@@ -49,7 +49,7 @@ public class ContainerUltimateRefinery extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer par1EntityPlayer) {
-		return this.tileEntity.isUseableByPlayer(par1EntityPlayer);
+		return this.tileEntity.isUsableByPlayer(par1EntityPlayer);
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class ContainerUltimateRefinery extends Container {
 						if (!this.mergeItemStack(var4, 1, 2, false)) {
 							return null;
 						}
-					} else if (FluidUtil.isEmptyContainer(var4, GCItems.fuelCanister)) {
+					} else if (FluidUtil.isPartialContainer(var4, GCItems.fuelCanister)) {
 						if (!this.mergeItemStack(var4, 2, 3, false)) {
 							return null;
 						}
@@ -96,17 +96,17 @@ public class ContainerUltimateRefinery extends Container {
 				}
 			}
 
-			if (var4.stackSize == 0) {
+			if (var4.getCount() == 0) {
 				slot.putStack((ItemStack) null);
 			} else {
 				slot.onSlotChanged();
 			}
 
-			if (var4.stackSize == var2.stackSize) {
+			if (var4.getCount() == var2.getCount()) {
 				return null;
 			}
 
-			slot.onPickupFromSlot(par1EntityPlayer, var4);
+			slot.onTake(par1EntityPlayer, var4);
 		}
 
 		return var2;

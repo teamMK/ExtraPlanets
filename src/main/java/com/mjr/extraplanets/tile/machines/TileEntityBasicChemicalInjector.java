@@ -10,6 +10,7 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -20,7 +21,7 @@ public class TileEntityBasicChemicalInjector extends TileBaseElectricBlockWithIn
 	public static final int PROCESS_TIME_REQUIRED = 150;
 	@NetworkedField(targetSide = Side.CLIENT)
 	public int processTicks = 0;
-	private ItemStack[] containingItems = new ItemStack[4];
+	private NonNullList<ItemStack> containingItems = new ItemStack[4];
 
 	private ItemStack producingStack = new ItemStack(ExtraPlanets_Items.POTASSIUM_IODIDE, 1, 0);
 
@@ -70,7 +71,7 @@ public class TileEntityBasicChemicalInjector extends TileBaseElectricBlockWithIn
 		if (!this.containingItems[3].isItemEqual(itemstack)) {
 			return false;
 		}
-		int result = this.containingItems[3].stackSize + itemstack.stackSize;
+		int result = this.containingItems[3].getCount() + itemstack.getCount();
 		return result <= this.getInventoryStackLimit() && result <= itemstack.getMaxStackSize();
 	}
 
@@ -80,8 +81,8 @@ public class TileEntityBasicChemicalInjector extends TileBaseElectricBlockWithIn
 			if (this.containingItems[3] == null) {
 				this.containingItems[3] = resultItemStack.copy();
 			} else if (this.containingItems[3].isItemEqual(resultItemStack)) {
-				if (this.containingItems[3].stackSize + resultItemStack.stackSize > 64) {
-					for (int i = 0; i < this.containingItems[3].stackSize + resultItemStack.stackSize - 64; i++) {
+				if (this.containingItems[3].getCount() + resultItemStack.getCount() > 64) {
+					for (int i = 0; i < this.containingItems[3].getCount() + resultItemStack.getCount() - 64; i++) {
 						float var = 0.7F;
 						double dx = this.world.rand.nextFloat() * var + (1.0F - var) * 0.5D;
 						double dy = this.world.rand.nextFloat() * var + (1.0F - var) * 0.5D;
@@ -90,9 +91,9 @@ public class TileEntityBasicChemicalInjector extends TileBaseElectricBlockWithIn
 						entityitem.setPickupDelay(10);
 						this.world.spawnEntity(entityitem);
 					}
-					this.containingItems[3].stackSize = 64;
+					this.containingItems[3].getCount() = 64;
 				} else {
-					this.containingItems[3].stackSize += resultItemStack.stackSize;
+					this.containingItems[3].getCount() += resultItemStack.getCount();
 				}
 			}
 		}
@@ -116,7 +117,7 @@ public class TileEntityBasicChemicalInjector extends TileBaseElectricBlockWithIn
 	}
 
 	@Override
-	protected ItemStack[] getContainingItems() {
+	protected NonNullList<ItemStack> getContainingItems() {
 		return this.containingItems;
 	}
 

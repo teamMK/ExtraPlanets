@@ -155,10 +155,10 @@ public class MainHandlerServer {
 	private void checkPressure(LivingEvent.LivingUpdateEvent event, EntityLivingBase entityLiving) {
 		EntityPlayerMP playerMP = (EntityPlayerMP) entityLiving;
 
-		ItemStack helmet = playerMP.inventory.armorInventory[0];
-		ItemStack chest = playerMP.inventory.armorInventory[1];
-		ItemStack leggins = playerMP.inventory.armorInventory[2];
-		ItemStack boots = playerMP.inventory.armorInventory[3];
+		ItemStack helmet = playerMP.inventory.armorItemInSlot(0);
+		ItemStack chest = playerMP.inventory.armorItemInSlot(1);
+		ItemStack leggins = playerMP.inventory.armorItemInSlot(2);
+		ItemStack boots = playerMP.inventory.armorItemInSlot(3);
 
 		boolean doDamage = false;
 
@@ -191,22 +191,22 @@ public class MainHandlerServer {
 		boolean doArmorCheck = false;
 		double damageModifer = 0;
 		int radiationLevel = provider.getSolarRadiationLevel();
-		if (playerMP.inventory.armorInventory[0] == null || playerMP.inventory.armorInventory[1] == null || playerMP.inventory.armorInventory[2] == null || playerMP.inventory.armorInventory[3] == null) {
+		if (playerMP.inventory.armorItemInSlot(0) == null || playerMP.inventory.armorItemInSlot(1) == null || playerMP.inventory.armorItemInSlot(2) == null || playerMP.inventory.armorItemInSlot(3) == null) {
 			damageModifer = 0.2;
 			doDamage = true;
-		} else if (!(playerMP.inventory.armorInventory[0].getItem() instanceof IRadiationSuit) && !(playerMP.inventory.armorInventory[1].getItem() instanceof IRadiationSuit)
-				&& !(playerMP.inventory.armorInventory[2].getItem() instanceof IRadiationSuit) && !(playerMP.inventory.armorInventory[3].getItem() instanceof IRadiationSuit)) {
+		} else if (!(playerMP.inventory.armorItemInSlot(0).getItem() instanceof IRadiationSuit) && !(playerMP.inventory.armorItemInSlot(1).getItem() instanceof IRadiationSuit)
+				&& !(playerMP.inventory.armorItemInSlot(2).getItem() instanceof IRadiationSuit) && !(playerMP.inventory.armorItemInSlot(3).getItem() instanceof IRadiationSuit)) {
 			damageModifer = 0.2;
 			doDamage = true;
-		} else if (playerMP.inventory.armorInventory[0].getItem() instanceof IRadiationSuit) {
+		} else if (playerMP.inventory.armorItemInSlot(0).getItem() instanceof IRadiationSuit) {
 			doArmorCheck = true;
 			doDamage = false;
 		}
 		if (doArmorCheck) {
-			int helmetTier = ((IRadiationSuit) playerMP.inventory.armorInventory[0].getItem()).getArmorTier();
-			int chestTier = ((IRadiationSuit) playerMP.inventory.armorInventory[1].getItem()).getArmorTier();
-			int legginsTier = ((IRadiationSuit) playerMP.inventory.armorInventory[2].getItem()).getArmorTier();
-			int bootsTier = ((IRadiationSuit) playerMP.inventory.armorInventory[3].getItem()).getArmorTier();
+			int helmetTier = ((IRadiationSuit) playerMP.inventory.armorItemInSlot(0).getItem()).getArmorTier();
+			int chestTier = ((IRadiationSuit) playerMP.inventory.armorItemInSlot(1).getItem()).getArmorTier();
+			int legginsTier = ((IRadiationSuit) playerMP.inventory.armorItemInSlot(2).getItem()).getArmorTier();
+			int bootsTier = ((IRadiationSuit) playerMP.inventory.armorItemInSlot(3).getItem()).getArmorTier();
 
 			int tierValue = (helmetTier + chestTier + legginsTier + bootsTier) / 2;
 			double damageToTake = 0.005 * tierValue;
