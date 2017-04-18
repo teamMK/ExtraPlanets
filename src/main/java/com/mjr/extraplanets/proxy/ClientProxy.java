@@ -959,17 +959,34 @@ public class ClientProxy extends CommonProxy {
 			ClientUtilities.replaceModelDefault(event, "rocket_t4", "rocket_t4.obj", ImmutableList.of("Nozzle", "Body_Rocket", "CorrectedWind1", "CorrectedWind2", "CorrectedWind3", "CorrectedWind4", "Tip", "Ring", "FrameWindow1", "FrameWindow2",
 					"FrameWindow3", "FrameWindow4", "GlassWindow", "Rocket_stabilizer1", "Rocket_stabilizer2", "Rocket_stabilizer3", "Rocket_stabilizer4"), ItemModelRocketT4.class, TRSRTransformation.identity());
 		if (Config.JUPITER)
-			ClientUtilities.replaceModelDefault(event, "rocket_t5", "rocket_t5.obj", ImmutableList.of("Boosters", "Cube", "NoseCone", "Rocket"), ItemModelRocketT5.class, TRSRTransformation.identity());
+			ClientUtilities.replaceModelDefault(event, "rocket_t5", "rocket_t5.obj", ImmutableList.of("Nozzle", "Body_Rocket", "Rocket_stabilizer1", "Rocket_stabilizer2", "Rocket_stabilizer3", "Rocket_stabilizer4", "Tip", "Ring", "FrameWindow1",
+					"FrameWindow2", "FrameWindow3", "FrameWindow4", "GlassWindow", "CorrectedWind005", "CorrectedWind006", "CorrectedWind007", "CorrectedWind008", "Cylinder001", "Cylinder002", "Cylinder003", "Cylinder004", "Cylinder005",
+					"Cylinder006", "Helix001"), ItemModelRocketT5.class, TRSRTransformation.identity());
 		if (Config.SATURN)
-			ClientUtilities.replaceModelDefault(event, "rocket_t6", "rocket_t6.obj", ImmutableList.of("Boosters", "Cube", "NoseCone", "Rocket"), ItemModelRocketT6.class, TRSRTransformation.identity());
+			ClientUtilities.replaceModelDefault(event, "rocket_t6", "rocket_t6.obj", ImmutableList.of("Nozzle", "Body_Rocket", "CorrectedWind1", "CorrectedWind2", "CorrectedWind3", "CorrectedWind4", "Rocket_stabilizer1", "Rocket_stabilizer2",
+					"Rocket_stabilizer3", "Rocket_stabilizer4", "Tip", "Ring", "FrameWindow1", "FrameWindow2", "FrameWindow3", "FrameWindow4", "GlassWindow", "CorrectedWind005", "CorrectedWind006", "CorrectedWind007", "CorrectedWind008",
+					"Cylinder001", "Cylinder002", "Cylinder003", "Cylinder004", "Cylinder005", "Cylinder006", "Helix001", "SplinePathDeform", "Pipe004", "Pipe005", "Pipe006", "Pipe007", "RocketEngine", "RocketEngine001", "RocketEngine002",
+					"RocketEngine003"), ItemModelRocketT6.class, TRSRTransformation.identity());
 		if (Config.URANUS)
-			ClientUtilities.replaceModelDefault(event, "rocket_t7", "rocket_t7.obj", ImmutableList.of("Boosters", "Cube", "NoseCone", "Rocket"), ItemModelRocketT7.class, TRSRTransformation.identity());
+			ClientUtilities.replaceModelDefault(event, "rocket_t7", "rocket_t7.obj", ImmutableList.of("Nozzle", "Body_Rocket", "CorrectedWind1", "CorrectedWind2", "CorrectedWind3", "CorrectedWind4", "Rocket_stabilizer1", "Rocket_stabilizer2",
+					"Rocket_stabilizer3", "Rocket_stabilizer4", "Tip", "Ring", "FrameWindow1", "FrameWindow2", "FrameWindow3", "FrameWindow4", "GlassWindow", "CorrectedWind005", "CorrectedWind006", "CorrectedWind007", "CorrectedWind008",
+					"Cylinder001", "Cylinder002", "Cylinder003", "Cylinder004", "Cylinder005", "Cylinder006", "Helix001", "SplinePathDeform", "Pipe004", "Pipe005", "Pipe006", "Pipe007", "RocketEngine", "RocketEngine001", "RocketEngine002",
+					"RocketEngine003", "RocketEngineBottom", "RocketEngineBottom001", "RocketEngineBottom002", "RocketEngineBottom003", "PathDeform2", "Wire1", "Wire2", "WireLight"), ItemModelRocketT7.class, TRSRTransformation.identity());
 		if (Config.NEPTUNE)
-			ClientUtilities.replaceModelDefault(event, "rocket_t8", "rocket_t8.obj", ImmutableList.of("Boosters", "Cube", "NoseCone", "Rocket"), ItemModelRocketT8.class, TRSRTransformation.identity());
+			ClientUtilities.replaceModelDefault(event, "rocket_t8", "rocket_t8.obj", ImmutableList.of("Nozzle", "BodyRocket", "Rocket_stabilizer1", "Rocket_stabilizer2", "Rocket_stabilizer3", "Rocket_stabilizer4", "Rocket_stabilizer007",
+					"Rocket_stabilizer008", "Rocket_stabilizer009", "Rocket_stabilizer010", "SplinePathDeform", "RocketEngine", "RocketEngine001", "RocketEngine002", "RocketEngine003", "RocketEngine004", "RocketEngine005", "RocketEngine006",
+					"RocketEngine007", "RocketEngineBottom", "RocketEngineBottom001", "RocketEngineBottom002", "RocketEngineBottom003", "RocketEngineBottom004", "RocketEngineBottom005", "RocketEngineBottom006", "RocketEngineBottom007",
+					"FloorCockPit", "NoseRocket", "NozzleKeeper", "rotary_engine", "rotary_engine2", "rotary_engine3", "rotary_engine4"), ItemModelRocketT8.class, TRSRTransformation.identity());
 		if (Config.PLUTO)
-			ClientUtilities.replaceModelDefault(event, "rocket_t9", "rocket_t9.obj", ImmutableList.of("Boosters", "Cube", "NoseCone", "Rocket"), ItemModelRocketT9.class, TRSRTransformation.identity());
+			ClientUtilities.replaceModelDefault(event, "rocket_t9", "rocket_t9.obj", ImmutableList.of("Nozzle", "Nozzle001", "Nozzle002", "NozzleKeeper", "NozzleKeeper001", "BodyRocket", "BodyRocket001", "Rocket_stabilizer1", "Rocket_stabilizer2",
+					"Rocket_stabilizer3", "Rocket_stabilizer4", "Rocket_stabilizer007", "Rocket_stabilizer008", "Rocket_stabilizer009", "Rocket_stabilizer010", "Rocket_stabilizer011", "Rocket_stabilizer012", "SplinePathDeform", "RocketEngine",
+					"RocketEngine002", "RocketEngine004", "RocketEngine005", "RocketEngine007", "RocketEngine008", "RocketEngineBottom", "RocketEngineBottom003", "RocketEngineBottom004", "RocketEngineBottom005", "RocketEngineBottom006",
+					"RocketEngineBottom007", "RocketEngineBottom008", "FloorCockPit", "Cockoit", "NoseRocket", "rotary_engine", "rotary_engine2", "rotary_engine3", "rotary_engine4", "rotary_engine005", "rotary_engine006"), ItemModelRocketT9.class,
+					TRSRTransformation.identity());
 		if (Config.ERIS)
-			ClientUtilities.replaceModelDefault(event, "rocket_t10", "rocket_t10.obj", ImmutableList.of("Boosters", "Cube", "NoseCone", "Rocket"), ItemModelRocketT10.class, TRSRTransformation.identity());
+			ClientUtilities.replaceModelDefault(event, "rocket_t10", "rocket_t10.obj", ImmutableList.of("RocketCockpit", "RoofCockpit", "Fuel_valve1", "Fuel_valve002", "Fuel_valve003", "Fuel_valve004", "NoseRocket", "Nozzle001", "NozzleKeeper001",
+					"NozzleKeeper002", "RocketEngine004", "RocketEngine005", "RocketEngine006", "RocketEngine007", "RocketEngineBottom004", "RocketEngineBottom005", "RocketEngineBottom006", "RocketEngineBottom007", "FloorCockPit"),
+					ItemModelRocketT10.class, TRSRTransformation.identity());
 	}
 
 	private void registerFluidVariants() {

@@ -31,10 +31,10 @@ public class ItemModelRocketT10 extends ModelTransformWrapper
             mul.setRotation(rot);
             ret.mul(mul);
             mul.setIdentity();
-            mul.setScale(0.61F);
+            mul.setScale(0.25F);
             ret.mul(mul);
             mul.setIdentity();
-            mul.setTranslation(new Vector3f(-0.25F, -0.35F, 0.0F));
+            mul.setTranslation(new Vector3f(-1.55F, -1.30F, 0.0F));
             ret.mul(mul);
             mul.setIdentity();
             mul.rotY((float) (Math.PI / 2.0F));

@@ -78,7 +78,7 @@ public class RenderTier10Rocket extends Render<EntityTier10Rocket> {
 		}
 
 		GL11.glScalef(-1.0F, -1.0F, 1.0F);
-		GL11.glScalef(0.8F, 0.8F, 0.8F);
+		GL11.glScalef(0.7F, 0.7F, 0.7F);
 
 		ClientUtil.drawBakedModel(rocketModel);
 
