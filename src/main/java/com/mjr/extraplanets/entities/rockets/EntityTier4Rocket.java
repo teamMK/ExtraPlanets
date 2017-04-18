@@ -61,7 +61,7 @@ public class EntityTier4Rocket extends EntityTieredRocket {
 
 	@Override
 	public double getOnPadYOffset() {
-		return 0.0D;
+		return 2.0D;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
